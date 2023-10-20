@@ -13,15 +13,9 @@ export function getPostById(postId: Post["id"]): Promise<Post> {
   return PostRepository.getPostById(postId);
 }
 
-export async function getPostByIdWithCommentsAndUsers(postId: Post["id"]): Promise<
-  Post & {
-    comments: Array<
-      Comment & {
-        user: User;
-      }
-    >;
-  }
-> {
+export async function getPostByIdWithCommentsAndUsers(
+  postId: Post["id"]
+): Promise<Post & { comments: Array<Comment & { user: User }> }> {
   const post = await getPostById(postId);
   const comments = await CommentService.getCommentsByPostIdWithUser(postId);
 

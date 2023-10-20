@@ -1,5 +1,5 @@
+import { PostRepository } from "../../infrastructure/repositories";
 import { Post } from "../models/post";
-import * as PostRepository from "../../infrastructure/repositories/post/post.repository";
 
 export class GetPostsUseCase {
   constructor(private readonly postRepository: typeof PostRepository) {}
