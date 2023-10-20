@@ -3,12 +3,14 @@ import { apiFetch } from "../../api-fetch/api-fetch";
 import { Post } from "../../../domain/models/post";
 
 export function mapPostDtoToDomain(postDto: PostDto): Post {
+  const parsedPostDto = PostDtoSchema.parse(postDto);
+
   return {
-    id: postDto.id,
-    title: postDto.title,
-    body: postDto.body,
-    popularity: postDto.reactions < 10 ? "low" : postDto.reactions < 50 ? "medium" : "high",
-    tags: postDto.tags,
+    id: parsedPostDto.id,
+    title: parsedPostDto.title,
+    body: parsedPostDto.body,
+    popularity: parsedPostDto.reactions < 10 ? "low" : parsedPostDto.reactions < 50 ? "medium" : "high",
+    tags: parsedPostDto.tags,
   };
 }
 
@@ -18,8 +20,8 @@ export async function getPosts(): Promise<Post[]> {
 }
 
 export async function getPostById(postId: number): Promise<Post> {
-  const postResponse = await apiFetch<PostDto[]>(`/posts/${postId}`);
-  return mapPostDtoToDomain(PostDtoSchema.parse(postResponse));
+  const postResponse = await apiFetch<PostDto>(`/posts/${postId}`);
+  return mapPostDtoToDomain(postResponse);
 }
 
 export async function createPost(post: Post): Promise<Post["id"]> {

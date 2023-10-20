@@ -3,13 +3,15 @@ import { UserDto, UserDtoSchema } from "./user-dto";
 import { User } from "../../../domain/models/user";
 
 export function mapUserDtoToDomain(userDto: UserDto): User {
+  const parsedUserDto = UserDtoSchema.parse(userDto);
+
   return {
-    id: userDto.id,
-    username: userDto.username,
-    email: userDto.email,
-    fullName: `${userDto.firstName} ${userDto.lastName}`,
-    age: userDto.age,
-    avatar: userDto.image,
+    id: parsedUserDto.id,
+    username: parsedUserDto.username,
+    email: parsedUserDto.email,
+    fullName: `${parsedUserDto.firstName} ${parsedUserDto.lastName}`,
+    age: parsedUserDto.age,
+    avatar: parsedUserDto.image,
   };
 }
 
