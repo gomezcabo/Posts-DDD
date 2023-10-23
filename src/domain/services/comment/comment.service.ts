@@ -1,5 +1,5 @@
-import { groupBy } from "../../../utils/group-by";
-import { unique } from "../../../utils/unique";
+import { groupBy } from "../../../infrastructure/utils/group-by";
+import { unique } from "../../../infrastructure/utils/unique";
 
 import { Comment } from "../../models/comment";
 import { User } from "../../models/user";

@@ -16,7 +16,7 @@ export function mapPostDtoToDomain(postDto: PostDto): Post {
 
 export async function getPosts(): Promise<Post[]> {
   const postsResponse = await apiFetch<{ posts: PostDto[] }>("/posts");
-  return postsResponse.posts.map((post) => mapPostDtoToDomain(PostDtoSchema.parse(post)));
+  return postsResponse.posts.map((post) => mapPostDtoToDomain(post));
 }
 
 export async function getPostById(postId: number): Promise<Post> {
