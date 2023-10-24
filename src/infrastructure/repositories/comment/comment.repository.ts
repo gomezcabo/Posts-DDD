@@ -1,19 +1,29 @@
-import { apiFetch } from "../../api-fetch/api-fetch";
+import { ApiAdapter } from "../../api-adapter/api-adapter";
 import { Comment } from "../../../domain/models/comment";
 import { CommentDto, CommentDtoSchema } from "./comment-dto";
+import { CommentRepositoryInterface } from "../../../domain/interfaces/comment-repository.interface";
 
-export function mapCommentDtoToDomain(commentDto: CommentDto): Comment {
-  const parsedDtoComment = CommentDtoSchema.parse(commentDto);
+export class CommentRepository implements CommentRepositoryInterface {
+  constructor(private apiAdapter: ApiAdapter) {}
 
-  return {
-    id: parsedDtoComment.id,
-    body: parsedDtoComment.body,
-    postId: parsedDtoComment.id,
-    userId: parsedDtoComment.user.id,
-  };
-}
+  private static mapCommentDtoToDomain(commentDto: CommentDto): Comment {
+    const parsedCommentDto = CommentDtoSchema.parse(commentDto);
 
-export async function getCommentsByPostId(postId: number): Promise<Comment[]> {
-  const commentsResponse = await apiFetch<{ comments: CommentDto[] }>(`/comments/post/${postId}`);
-  return commentsResponse.comments.map(mapCommentDtoToDomain);
+    return {
+      id: parsedCommentDto.id,
+      body: parsedCommentDto.body,
+      postId: commentDto.postId,
+      userId: commentDto.user.id,
+    };
+  }
+
+  async getComments(): Promise<Comment[]> {
+    const commentsResponse = await this.apiAdapter.get<{ comments: CommentDto[] }>("/comments");
+    return commentsResponse.comments.map(CommentRepository.mapCommentDtoToDomain);
+  }
+
+  async getCommentById(commentId: number): Promise<Comment> {
+    const commentResponse = await this.apiAdapter.get<CommentDto>(`/comments/${commentId}`);
+    return CommentRepository.mapCommentDtoToDomain(commentResponse);
+  }
 }

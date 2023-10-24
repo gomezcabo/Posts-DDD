@@ -1,4 +1,4 @@
-export class Api {
+export class ApiAdapter {
   private API_URL = "https://dummyjson.com";
 
   async get<T>(path: string) {

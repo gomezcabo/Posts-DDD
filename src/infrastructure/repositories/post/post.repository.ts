@@ -1,12 +1,12 @@
-import { PostDto, PostDtoSchema } from "./post-dto";
-import { Api } from "../../api-fetch/api-fetch";
+import { ApiAdapter } from "../../api-adapter/api-adapter";
 import { Post } from "../../../domain/models/post";
 import { PostRepositoryInterface } from "../../../domain/interfaces/post-repository.interface";
+import { PostDto, PostDtoSchema } from "./post-dto";
 
 export class PostRepository implements PostRepositoryInterface {
-  constructor(private api: Api) {}
+  constructor(private apiAdapter: ApiAdapter) {}
 
-  private mapPostDtoToDomain(postDto: PostDto): Post {
+  private static mapPostDtoToDomain(postDto: PostDto): Post {
     const parsedPostDto = PostDtoSchema.parse(postDto);
 
     return {
@@ -19,17 +19,17 @@ export class PostRepository implements PostRepositoryInterface {
   }
 
   async getPosts(): Promise<Post[]> {
-    const postsResponse = await this.api.get<{ posts: PostDto[] }>("/posts");
-    return postsResponse.posts.map((post) => this.mapPostDtoToDomain(PostDtoSchema.parse(post)));
+    const postsResponse = await this.apiAdapter.get<{ posts: PostDto[] }>("/posts");
+    return postsResponse.posts.map(PostRepository.mapPostDtoToDomain);
   }
 
   async getPostById(postId: number): Promise<Post> {
-    const postResponse = await this.api.get<PostDto>(`/posts/${postId}`);
-    return this.mapPostDtoToDomain(postResponse);
+    const postResponse = await this.apiAdapter.get<PostDto>(`/posts/${postId}`);
+    return PostRepository.mapPostDtoToDomain(postResponse);
   }
 
   async createPost(post: Post): Promise<Post["id"]> {
     console.log(`Creating post (postId=${post.id})`);
-    return 12345;
+    return 12345; // Irrelevant, fake id
   }
 }

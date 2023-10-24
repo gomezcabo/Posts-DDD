@@ -1,21 +1,26 @@
-import { apiFetch } from "../../api-fetch/api-fetch";
-import { UserDto, UserDtoSchema } from "./user-dto";
+import { ApiAdapter } from "../../api-adapter/api-adapter";
 import { User } from "../../../domain/models/user";
+import { UserDto, UserDtoSchema } from "./user-dto";
+import { UserRepositoryInterface } from "../../../domain/interfaces/user-repository.interface";
 
-export function mapUserDtoToDomain(userDto: UserDto): User {
-  const parsedUserDto = UserDtoSchema.parse(userDto);
+export class UserRepository implements UserRepositoryInterface {
+  constructor(private apiAdapter: ApiAdapter) {}
 
-  return {
-    id: parsedUserDto.id,
-    username: parsedUserDto.username,
-    email: parsedUserDto.email,
-    fullName: `${parsedUserDto.firstName} ${parsedUserDto.lastName}`,
-    age: parsedUserDto.age,
-    avatar: parsedUserDto.image,
-  };
-}
+  private static mapUserDtoToDomain(userDto: UserDto): User {
+    const parsedUserDto = UserDtoSchema.parse(userDto);
 
-export async function getUserById(userId: number): Promise<User> {
-  const userResponse = await apiFetch<UserDto[]>(`/users/${userId}`);
-  return mapUserDtoToDomain(UserDtoSchema.parse(userResponse));
+    return {
+      id: parsedUserDto.id,
+      username: parsedUserDto.username,
+      email: parsedUserDto.email,
+      age: parsedUserDto.age,
+      avatar: parsedUserDto.image,
+      fullName: `${parsedUserDto.firstName} ${parsedUserDto.lastName}`,
+    };
+  }
+
+  async getUserById(userId: number): Promise<User> {
+    const userResponse = await this.apiAdapter.get<UserDto>(`/users/${userId}`);
+    return UserRepository.mapUserDtoToDomain(userResponse);
+  }
 }
