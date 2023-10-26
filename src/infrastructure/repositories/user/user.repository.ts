@@ -1,5 +1,5 @@
 import { ApiAdapter } from "../../api-adapter/api-adapter";
-import { User } from "../../../domain/models/user";
+import { User } from "../../../domain/entities/user";
 import { UserDto, UserDtoSchema } from "./user-dto";
 import { UserRepositoryInterface } from "../../../domain/interfaces/user-repository.interface";
 

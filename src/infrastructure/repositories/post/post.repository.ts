@@ -1,5 +1,5 @@
 import { ApiAdapter } from "../../api-adapter/api-adapter";
-import { Post } from "../../../domain/models/post";
+import { Post } from "../../../domain/entities/post";
 import { PostRepositoryInterface } from "../../../domain/interfaces/post-repository.interface";
 import { PostDto, PostDtoSchema } from "./post-dto";
 

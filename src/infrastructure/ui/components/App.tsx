@@ -1,5 +1,5 @@
 import { usePosts } from "../hooks/use-posts";
-import { usePost } from "../hooks/use-post";
+import { usePostById } from "../hooks/use-post-by-id";
 
 const Loading = () => <div>Loading...</div>;
 const Json = ({ item }: { item: unknown }) => (
@@ -7,7 +7,7 @@ const Json = ({ item }: { item: unknown }) => (
 );
 
 function App() {
-  const postQuery = usePost(3);
+  const postQuery = usePostById(3);
   const postsQuery = usePosts();
 
   return (

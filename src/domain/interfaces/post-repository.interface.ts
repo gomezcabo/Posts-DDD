@@ -1,4 +1,4 @@
-import { Post } from "../models/post";
+import { Post } from "../entities/post";
 
 export interface PostRepositoryInterface {
   getPosts(): Promise<Post[]>;

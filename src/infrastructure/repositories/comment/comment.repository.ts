@@ -1,5 +1,5 @@
 import { ApiAdapter } from "../../api-adapter/api-adapter";
-import { Comment } from "../../../domain/models/comment";
+import { Comment } from "../../../domain/entities/comment";
 import { CommentDto, CommentDtoSchema } from "./comment-dto";
 import { CommentRepositoryInterface } from "../../../domain/interfaces/comment-repository.interface";
 

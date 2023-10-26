@@ -1,4 +1,4 @@
-import { Comment } from "../models/comment";
+import { Comment } from "../entities/comment";
 
 export interface CommentRepositoryInterface {
   getComments(): Promise<Comment[]>;

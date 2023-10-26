@@ -1,5 +1,5 @@
 import { PostRepositoryInterface } from "../interfaces/post-repository.interface";
-import { Post } from "../models/post";
+import { Post } from "../entities/post";
 
 export class CreatePostUseCase {
   constructor(private readonly postRepository: PostRepositoryInterface) {}
