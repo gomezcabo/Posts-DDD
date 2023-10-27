@@ -1,3 +1,6 @@
+import { injectable } from "inversify";
+
+@injectable()
 export class ApiAdapter {
   private API_URL = "https://dummyjson.com";
 

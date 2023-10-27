@@ -2,9 +2,11 @@ import { ApiAdapter } from "../../api-adapter/api-adapter";
 import { Post } from "../../../domain/entities/post";
 import { PostRepositoryInterface } from "../../../domain/interfaces/post-repository.interface";
 import { PostDto, PostDtoSchema } from "./post-dto";
+import { inject, injectable } from "inversify";
 
+@injectable()
 export class PostRepository implements PostRepositoryInterface {
-  constructor(private apiAdapter: ApiAdapter) {}
+  constructor(@inject(ApiAdapter) private apiAdapter: ApiAdapter) {}
 
   private static mapPostDtoToDomain(postDto: PostDto): Post {
     const parsedPostDto = PostDtoSchema.parse(postDto);
