@@ -2,9 +2,11 @@ import { ApiAdapter } from "../../api-adapter/api-adapter";
 import { Comment } from "../../../domain/entities/comment";
 import { CommentDto, CommentDtoSchema } from "./comment-dto";
 import { CommentRepositoryInterface } from "../../../domain/interfaces/comment-repository.interface";
+import { inject, injectable } from "inversify";
 
+@injectable()
 export class CommentRepository implements CommentRepositoryInterface {
-  constructor(private apiAdapter: ApiAdapter) {}
+  constructor(@inject(ApiAdapter) private apiAdapter: ApiAdapter) {}
 
   private static mapCommentDtoToDomain(commentDto: CommentDto): Comment {
     const parsedCommentDto = CommentDtoSchema.parse(commentDto);

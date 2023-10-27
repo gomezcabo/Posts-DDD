@@ -2,9 +2,11 @@ import { ApiAdapter } from "../../api-adapter/api-adapter";
 import { User } from "../../../domain/entities/user";
 import { UserDto, UserDtoSchema } from "./user-dto";
 import { UserRepositoryInterface } from "../../../domain/interfaces/user-repository.interface";
+import { inject, injectable } from "inversify";
 
+@injectable()
 export class UserRepository implements UserRepositoryInterface {
-  constructor(private apiAdapter: ApiAdapter) {}
+  constructor(@inject(ApiAdapter) private apiAdapter: ApiAdapter) {}
 
   private static mapUserDtoToDomain(userDto: UserDto): User {
     const parsedUserDto = UserDtoSchema.parse(userDto);

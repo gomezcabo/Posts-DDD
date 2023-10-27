@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { PostUseCases } from "../../../domain/use-cases";
+import container from "../../../inversify";
+import { GetPostsUseCase } from "../../../domain/use-cases/get-posts";
 
 export function usePosts() {
-  return useQuery(["posts"], () => PostUseCases.GetPostsUseCase.execute());
+  const getPostsUseCase = container.get(GetPostsUseCase);
+  return useQuery(["posts"], () => getPostsUseCase.execute());
 }
