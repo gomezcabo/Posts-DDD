@@ -22,7 +22,7 @@ export class CommentRepository implements CommentRepositoryInterface {
     return commentsResponse.comments.map(CommentRepository.mapCommentDtoToDomain);
   }
 
-  async getCommentById(commentId: number): Promise<Comment> {
+  async getCommentById(commentId: Comment["id"]): Promise<Comment> {
     const commentResponse = await this.apiAdapter.get<CommentDto>(`/comments/${commentId}`);
     return CommentRepository.mapCommentDtoToDomain(commentResponse);
   }

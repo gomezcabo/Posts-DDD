@@ -19,7 +19,7 @@ export class UserRepository implements UserRepositoryInterface {
     };
   }
 
-  async getUserById(userId: number): Promise<User> {
+  async getUserById(userId: User["id"]): Promise<User> {
     const userResponse = await this.apiAdapter.get<UserDto>(`/users/${userId}`);
     return UserRepository.mapUserDtoToDomain(userResponse);
   }

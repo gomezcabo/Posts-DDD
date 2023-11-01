@@ -23,7 +23,7 @@ export class PostRepository implements PostRepositoryInterface {
     return postsResponse.posts.map(PostRepository.mapPostDtoToDomain);
   }
 
-  async getPostById(postId: number): Promise<Post> {
+  async getPostById(postId: Post["id"]): Promise<Post> {
     const postResponse = await this.apiAdapter.get<PostDto>(`/posts/${postId}`);
     return PostRepository.mapPostDtoToDomain(postResponse);
   }
