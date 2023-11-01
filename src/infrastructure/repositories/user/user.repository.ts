@@ -15,7 +15,7 @@ export function mapUserDtoToDomain(userDto: UserDto): User {
   };
 }
 
-export async function getUserById(userId: number): Promise<User> {
+export async function getUserById(userId: User["id"]): Promise<User> {
   const userResponse = await apiFetch<UserDto[]>(`/users/${userId}`);
   return mapUserDtoToDomain(UserDtoSchema.parse(userResponse));
 }

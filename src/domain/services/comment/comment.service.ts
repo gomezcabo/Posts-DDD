@@ -5,12 +5,13 @@ import { Comment } from "../../models/comment";
 import { User } from "../../models/user";
 import { CommentRepository } from "../../../infrastructure/repositories";
 import { UserService } from "..";
+import { Post } from "../../models/post";
 
-export function getCommentsByPostId(postId: number): Promise<Comment[]> {
+export function getCommentsByPostId(postId: Post["id"]): Promise<Comment[]> {
   return CommentRepository.getCommentsByPostId(postId);
 }
 
-export async function getCommentsByPostIdWithUser(postId: number): Promise<Array<Comment & { user: User }>> {
+export async function getCommentsByPostIdWithUser(postId: Post["id"]): Promise<Array<Comment & { user: User }>> {
   const comments = await getCommentsByPostId(postId);
 
   const userIds = unique(comments.map(({ userId }) => userId));
