@@ -7,7 +7,7 @@ import { PostRepository } from "../../infrastructure/repositories/post/post.repo
 export class CreatePostUseCase {
   constructor(@inject(PostRepository) private readonly postRepository: PostRepositoryInterface) {}
 
-  async execute(post: Post): Promise<Post["id"]> {
+  async execute(post: Omit<Post, "id">): Promise<Post["id"]> {
     const newPostId = await this.postRepository.createPost(post);
     return newPostId;
   }
