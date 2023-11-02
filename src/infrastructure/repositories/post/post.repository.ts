@@ -29,7 +29,7 @@ export class PostRepository implements PostRepositoryInterface {
   }
 
   async createPost(post: Omit<Post, "id">): Promise<Post["id"]> {
-    console.log(`Creating post (postId=121345)`, post);
+    console.log("Creating post (postId=121345)", post);
     return 12345; // Irrelevant, fake id
   }
 }
