@@ -30,8 +30,8 @@ export class PostRepository implements PostRepositoryInterface {
     return PostRepository.mapPostDtoToDomain(postResponse);
   }
 
-  async createPost(post: Post): Promise<Post["id"]> {
-    console.log(`Creating post (postId=${post.id})`);
+  async createPost(post: Omit<Post, "id">): Promise<Post["id"]> {
+    console.log("Creating post (postId=12345)", post);
     return 12345; // Irrelevant, fake id
   }
 }
