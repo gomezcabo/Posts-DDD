@@ -7,13 +7,17 @@ import { UserRepository } from "./infrastructure/repositories/user/user.reposito
 import { GetPostsUseCase } from "./domain/use-cases/get-posts";
 import { CreatePostUseCase } from "./domain/use-cases/create-post";
 
+import { PostRepositoryInterface } from "./domain/interfaces/post-repository.interface";
+import { CommentRepositoryInterface } from "./domain/interfaces/comment-repository.interface";
+import { UserRepositoryInterface } from "./domain/interfaces/user-repository.interface";
+
 const container = new Container();
 
-container.bind<ApiAdapter>(ApiAdapter).to(ApiAdapter);
+container.bind(ApiAdapter).to(ApiAdapter);
 
-container.bind(PostRepository).to(PostRepository);
-container.bind(CommentRepository).to(CommentRepository);
-container.bind(UserRepository).to(UserRepository);
+container.bind(PostRepositoryInterface).to(PostRepository);
+container.bind(CommentRepositoryInterface).to(CommentRepository);
+container.bind(UserRepositoryInterface).to(UserRepository);
 
 container.bind(GetPostByIdUseCase).to(GetPostByIdUseCase);
 container.bind(GetPostsUseCase).to(GetPostsUseCase);

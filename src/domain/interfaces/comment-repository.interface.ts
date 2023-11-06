@@ -1,6 +1,6 @@
 import { Comment } from "../entities/comment";
 
-export interface CommentRepositoryInterface {
-  getComments(): Promise<Comment[]>;
-  getCommentById(postId: number): Promise<Comment>;
+export abstract class CommentRepositoryInterface {
+  abstract getComments(): Promise<Comment[]>;
+  abstract getCommentById(postId: number): Promise<Comment>;
 }

@@ -1,5 +1,5 @@
 import { User } from "../entities/user";
 
-export interface UserRepositoryInterface {
-  getUserById(userId: number): Promise<User>;
+export abstract class UserRepositoryInterface {
+  abstract getUserById(userId: number): Promise<User>;
 }
